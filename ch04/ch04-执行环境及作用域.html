@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    // 在下面的函数中  changeColor中color会去全局变量中进行搜索
+    // 在上朔之后 可以访问到color属性
+    var color = "blue";
+    function changeColor() {
+        if (color == "blue") {
+            color = "red";
+        } else {
+            color = "blue";
+        }
+    }
+    changeColor();
+    console.log("Color is now " + color);
+    // 在下面的函数中   有三个作用域范围  包括swap change 和 最外部的作用域
+    // 切记 在js中  内部的能通过作用域链访问到外部的数据
+    // 但是在外部不能去访问内部作用域的属性
+    var color2 = "red";
+    function changeColor2() {
+        var anotherColor = "blue";
+
+        function swapColor() {
+            var temp = anotherColor;
+            anotherColor = color2;
+            color2 = temp;
+        }
+
+        swapColor();
+    }
+    changeColor2();
+    console.log("Color2 is now " + color2);
+    // 延长作用域链   延长作用域链的方法
+    // 1.try-catch语句块中的catch语句块(会创建一个新的对象  其中包含的是错误对象的声明)
+    // 2.with语句(会将指定的对象添加到作用链中)
+    // 这两个语句都会在作用链的前段添加一个变量对象
+    function buildUrl() {
+        var qs = "?debug=true";
+        with(location) {
+            var url = href + qs;
+        }
+        return url;
+    }
+    console.log(buildUrl());
+    // 查询标识符
+    function getColor() {
+        var color = "blue";
+        return color;
+    }
+    console.log(getColor());
+    // 笔记
+    // javascript的内存回收机制
+    // 1.标记清除机制(一般采用)
+    //      使用标记清除  则会在垃圾回收器进行运作时为每一个在内存中的变量打上一个标记  然后去掉那些
+    //      存在引用的变量在内存中的引用  然后将剩下仍然还带有引用的变量进行回收
+    // 2.引用计数机制(一般不采用)
+    //      引用一次   则将计数加1  当缺失一部分引用时就减少1  这样当变量的引用为0时就可以回收内存
+    //      了  但是这样存在一个问题就是当出现循环引用的时候 就需要进行内存的释放了  否则不会进行自动的释放
+    function createPerson(name) {
+        var localPerson = {};
+        localPerson.name = name;
+        return localPerson;
+    }
+    var globalPerson = createPerson("Jack");
+    console.log(globalPerson.name);
+    // 将globalPerson对象置为null是为了解除引用
+    // 解除引用的真正作用是让值脱离执行环境  方便垃圾回收器再次运行时将其回收
+    globalPerson = null;
+</script>
+</body>
+</html>
