@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript">
+        function addTen(num) {
+            num += 10;
+            return num;
+        }
+        var count = 20;
+        var result = addTen(count);
+        console.log(count);
+        console.log(result);
+        function setName(obj, name) {
+            obj.name = name;
+        }
+        var person = {};
+        setName(person, "小明");
+        console.log(person.name);
+        // 按值传递参数和按引用传递参数的区别
+        // 按值传递：对形参的修改不会影响到实参的值
+        // 按引用传递：对形参的修改会影响到实参的值
+    </script>
+</body>
+</html>
