@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    function fun() {
+
+    }
+    // 对null类型返回的是object类型
+    // 对函数使用typeof会返回function类型
+    console.log(typeof null);
+    console.log(typeof fun);
+    var person = [];
+    // instanceof 如果变量是指定的引用类型的实例  那么返回true
+    // typeof 操作符针对的是基本类型的变量  如number string undefined null boolean
+    console.log(person instanceof Object);
+    console.log(person instanceof Array);
+</script>
+</body>
+</html>
